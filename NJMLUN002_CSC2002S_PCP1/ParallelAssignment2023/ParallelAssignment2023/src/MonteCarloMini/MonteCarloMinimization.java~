@@ -53,7 +53,7 @@ class MonteCarloMinimization{
     		System.out.printf("Arguments, x_range: ( %f, %f ), y_range( %f, %f )\n", xmin, xmax, ymin, ymax );
     		System.out.printf("Arguments, searches_density: %f\n", searches_density );
     		System.out.printf("\n");
-    		System.out.println("Integer Max Value: " + Integer.MAX_VALUE);
+    		System.out.println(Integer.MAX_VALUE);
     	}
     	
     	// Initialize 
