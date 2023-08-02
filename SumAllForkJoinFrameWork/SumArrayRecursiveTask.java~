@@ -1,0 +1,38 @@
+package ForkJoinDC;
+
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveTask;
+
+public class SumArrayRecursiveTask extends RecursiveTask<Integer> {
+    
+    int lo;
+    int hi;
+    int[] arr;
+    static final int SEQUENTIAL_CUTOFF = 2000;
+    int ans = 0;
+    
+    SumArrayRecursiveTask(int[] a, int l, int h) {
+         lo=l;hi=h;arr=a;   
+    }
+    
+    protected Integer compute() {// return answer instead of run
+        if (hi-lo < SEQUENTIAL_CUTOFF) {
+            int ans = 0;
+            for (int i=lo; i < hi; i++) {
+                ans += arr[i];
+            }
+            return ans;
+        }
+        else {
+            SumArrayRecursiveTask left = new SumArrayRecursiveTask(arr, lo, (hi+lo)/2);
+            SumArrayRecursiveTask right = new SumArrayRecursiveTask(arr, (hi+lo)/2, hi);
+            
+            left.fork();//recursive execute the compute method with the parameter in
+            // that array in another thread. This is where the next thread gets create
+            int rightAns = right.compute();// a RecursiveTask that returns a value
+            // we run the right part in the current thread for efficiency reasons
+            int leftAns = left.join();
+            return leftAns + rigthAns; // order matters to avoid race condition
+        }
+    }
+}
