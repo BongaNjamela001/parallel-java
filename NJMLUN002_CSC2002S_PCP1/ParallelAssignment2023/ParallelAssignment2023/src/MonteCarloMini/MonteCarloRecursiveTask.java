@@ -66,6 +66,5 @@ class MonteCarloRecursiveTask extends RecursiveTask<Integer> {
         for (int i=0;i<num_searches;i++) 
     		searches[i]=new Search(i+1, rand.nextInt(rows),rand.nextInt(columns),terrain);
     }
-
-
+    
 }
