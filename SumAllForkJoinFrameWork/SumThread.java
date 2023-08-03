@@ -18,7 +18,6 @@ public class SumThread implements Runnable{
     public void run() {
        for(int i=lo; i < hi; i++){
            ans += arr[i];
-           System.out.println("Subanswer: " + ans);
        } 
     }
 }

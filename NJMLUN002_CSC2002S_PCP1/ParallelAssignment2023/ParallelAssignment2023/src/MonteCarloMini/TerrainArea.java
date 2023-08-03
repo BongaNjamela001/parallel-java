@@ -43,7 +43,8 @@ public class TerrainArea {
 	 
 	 void mark_visited(int x, int y, int searcherID) { 
 		 visit[x][y]=searcherID;
-		 grid_points_visited++;}
+		 grid_points_visited++;
+	 }
 	
 	 //evaluate function at a grid point
 	int get_height( int x, int y) {

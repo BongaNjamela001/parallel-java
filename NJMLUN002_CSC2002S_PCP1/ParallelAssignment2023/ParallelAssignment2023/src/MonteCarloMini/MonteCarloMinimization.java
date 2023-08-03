@@ -59,7 +59,7 @@ class MonteCarloMinimization{
     	// Initialize 
     	terrain = new TerrainArea(rows, columns, xmin,xmax,ymin,ymax);
     	num_searches = (int)( rows * columns * searches_density );
-    	searches= new Search [num_searches];
+    	searches = new Search [num_searches];
     	for (int i=0;i<num_searches;i++) 
     		searches[i]=new Search(i+1, rand.nextInt(rows),rand.nextInt(columns),terrain);
     	

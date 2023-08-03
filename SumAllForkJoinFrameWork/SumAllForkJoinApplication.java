@@ -1,5 +1,6 @@
 package ForkJoinDC;
 
+import java.util.Random;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
@@ -24,10 +25,14 @@ public class SumAllForkJoinApplication {
     
     public static void main(String[] args) {
     
-        int max = 100000000;
+        int max = 1000;
+        Random rndm = new Random();
+        int randomInt = 0;
         int [] arr = new int[max];
         for (int i=0; i<max;i++) {
-            arr[i]=i;
+            randomInt = Math.abs(rndm.nextInt(10 - 1 + 1) - 1);
+            //System.out.println("Entry " + (i + 1) +" = " + randomInt);
+            arr[i]= randomInt;
         }
         tick();
         int sumArr = sum(arr);
