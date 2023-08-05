@@ -1,3 +1,19 @@
+/**
+ * Title: Monte Carlo Fork Join Application
+ * Description: Application for implementing the ForkJoin framework
+ * on the Monte Carlo Minimization algorithm. Works together with the 
+ * MonteCarloRecursiveTask and Search class to find the minimum height
+ * of a surface described by a function in a rectangular TerrainArea. 
+ * Pseudo-random are generated using the Random class then used as
+ * starting points for each search conducted by a thread. Accepts the number 
+ * of rows and columns, the range of the x-axis and y-axis (xmin, xmax, ymin, ymax)
+ * and the searches density, as command line inputs. The speed of the program is compared to the speed of the serial MonteCarloMinimization 
+ * application to determine the extent of speedup introduced by a parallel
+ * programming.
+ * @author Bonga Njamela (NJMLUN002)
+ * @version 05-08-2023
+ */
+
 package MonteCarloMini;
 
 import java.util.Random;
@@ -29,13 +45,13 @@ class MonteCarloForkJoinApplication {
         return fjPool.invoke(new MonteCarloRecursiveTask(searches, 0, num_searches));
     }
 
-    private static void populateSearches(int rows, int columns, TerrainArea terrain) {
+    // private static void populateSearches(int rows, int columns, TerrainArea terrain) {
         
-        Random rand = new Random();//can be improved using Mersene Twister Library
+    //     Random rand = new Random();//can be improved using Mersene Twister Library
 
-        for (int i=0;i<num_searches;i++) 
-    		searches[i]=new Search(i+1, rand.nextInt(rows), rand.nextInt(columns), terrain);
-    }   
+    //     for (int i=0;i<num_searches;i++) 
+    // 		searches[i]=new Search(i+1, rand.nextInt(rows), rand.nextInt(columns), terrain);
+    // }   
     public static void main(String[] args) {
 
         int rows = 0, columns = 0;
@@ -67,7 +83,11 @@ class MonteCarloForkJoinApplication {
 
         terrain = new TerrainArea(rows, columns, xmin, xmax, ymin, ymax);
         searches = new Search[num_searches];
-        populateSearches(rows, columns, terrain);
+          
+        Random rand = new Random();//can be improved using Mersene Twister Library
+
+        for (int i=0;i<num_searches;i++) 
+    		searches[i]=new Search(i+1, rand.nextInt(rows), rand.nextInt(columns), terrain);
 
 
         int min = 0;

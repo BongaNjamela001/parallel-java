@@ -1,0 +1,11 @@
+0
+1
+Run parameters
+	 Rows: 1000, Columns: 1000
+	 x: [-10,000000, 10,000000], y: [-10,000000, 10,000000]
+	 Search density: 0,900000 (900000 searches)
+Time: 116 ms
+Grid points visited: 991941  (99%)
+Grid points evaluated: 999903  (100%)
+Global minimum: -77491 at x=-7,9 y=6,3
+

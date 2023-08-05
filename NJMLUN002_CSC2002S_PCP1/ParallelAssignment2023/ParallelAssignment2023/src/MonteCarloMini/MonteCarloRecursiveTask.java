@@ -33,6 +33,9 @@ class MonteCarloRecursiveTask extends RecursiveTask<Integer> {
 
         int min=Integer.MAX_VALUE;
     	int local_min=Integer.MAX_VALUE;
+        int rightMin1 = 0, rightMin2 = 0;            
+        int leftMin1 = 0, leftMin2 = 0; 
+
     
     	if ( (hi - lo) < SEQUENTIAL_CUTOFF) {
             for  (int i=lo;i<hi;i++) {
@@ -40,7 +43,6 @@ class MonteCarloRecursiveTask extends RecursiveTask<Integer> {
                 if((!searches[i].isStopped())&&(local_min<min)) { //don't look at  those who stopped because hit exisiting path
                     min=local_min;
                     setFinder(i); //keep track of who found it
-                    System.out.println(i);
                 }
                 if(MonteCarloMinimization.DEBUG) 
                     System.out.println("Search "+searches[i].getID()+" finished at  "+local_min + " in " +searches[i].getSteps());
@@ -49,27 +51,35 @@ class MonteCarloRecursiveTask extends RecursiveTask<Integer> {
         }
         else {
             //try to divide the terrain into 4 pieces, left1 and right1, and left2 and right2
+            // MonteCarloRecursiveTask leftTask1 = new MonteCarloRecursiveTask(searches, lo, (hi+lo)/4);
+            // MonteCarloRecursiveTask rightTask1 = new MonteCarloRecursiveTask(searches, (hi+lo)/4, (hi+lo)/2);
+            // MonteCarloRecursiveTask leftTask2 = new MonteCarloRecursiveTask(searches, (hi+lo)/2, (3*(hi+lo))/4);
+            // MonteCarloRecursiveTask rightTask2 = new MonteCarloRecursiveTask(searches, (3*(hi+lo))/4, hi);
+
             MonteCarloRecursiveTask leftTask1 = new MonteCarloRecursiveTask(searches, lo, (hi+lo)/2);
             MonteCarloRecursiveTask rightTask1 = new MonteCarloRecursiveTask(searches, (hi+lo)/2, hi);
-         //   MonteCarloRecursiveTask leftTask2 = new MonteCarloRecursiveTask(rows, columns, xmin, xmax, ymin, ymax);
-          //  MonteCarloRecursiveTask rightTask2 = new MonteCarloRecursiveTask(rows, columns, xmin, xmax, ymin, ymax);
 
             leftTask1.fork();
-            int rightMin1 = rightTask1.compute();
-            int leftMin1 = leftTask1.join();
-            //leftTask2.fork();
-            //int rightMin2 = rightTask2.compute();
-            //int leftMin2 = leftTask2.join();
+            // leftTask2.fork();
+            rightMin1 = rightTask1.compute();
+            leftMin1 = leftTask1.join();
+            if (leftMin1 <= rightMin1) 
+                return leftMin1;
+            else
+                return rightMin2;
+            // rightMin2 = rightTask2.compute();
+            // leftMin2 = leftTask2.join();
 
             
-            if (leftMin1 < rightMin1)
-                min = leftMin1;
-            else
-                min = rightMin1;
-
-            return min;
+            //if (leftMin1 < rightMin1 && leftMin1 < leftMin2 && leftMin1 < rightMin2)
+            //     return leftMin1;
+            // else if (rightMin1 < leftMin1 && rightMin1 < leftMin2 && rightMin1 < rightMin2)
+            //     return rightMin1;
+            // else if (leftMin2 < leftMin1 && leftMin2 < rightMin1 && leftMin2 < rightMin2)
+            //     return leftMin2;
+            // else
+            //     return rightMin2;
         }
-        
     }
  
 }
