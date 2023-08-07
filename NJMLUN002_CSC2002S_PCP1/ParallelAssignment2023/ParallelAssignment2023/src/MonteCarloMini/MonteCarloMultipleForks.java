@@ -46,7 +46,7 @@ class MonteCarloMultipleForks extends RecursiveTask<Integer> {
                 local_min=searches[i].find_valleys();
                 if((!searches[i].isStopped())&&(local_min<min)) { //don't look at  those who stopped because hit exisiting path
                     min=local_min;
-                    setFinder(i); //keep track of who found it
+                    finder = i; //keep track of who found it
                 }
                 if(MonteCarloMinimization.DEBUG) 
                     System.out.println("Search "+searches[i].getID()+" finished at  "+local_min + " in " +searches[i].getSteps());

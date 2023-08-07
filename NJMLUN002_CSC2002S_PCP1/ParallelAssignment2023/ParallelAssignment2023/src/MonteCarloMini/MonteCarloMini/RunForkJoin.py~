@@ -1,0 +1,44 @@
+import subprocess
+from collections import Counter
+
+java_files = [
+    "Search.java",
+    "TerrainArea.java",
+    "MonteCarloMinimization.java",
+    "MonteCarloRecursiveTask.java",
+    "MonteCarloRecursiveTask.java",
+    "MonteCarloCommonPool.java",
+    "MonteCarloCommonPoolApp",
+    "MonteCarloMultipleForks.java",
+    "MonteCarloMultipleDivisionApp.java",
+]
+
+num_runs = 100
+output_times = []
+
+with open("ForkJoinTimes.txt", "w") as f:
+    for _ in range(num_runs):
+        #Compile all java files
+        subprocess.run(["javac"] + java_files, check=True)
+        #Run the Java program and capture the output
+        result = subprocess.run("java", "MonteCarloForkJoinApplication 10000 10000 -100 100 -100 100 0.05", capture_output=True, text=True)
+        
+        #Get the 4th line of the output, corresponding to index 3, and read the time
+        match = re.search(r"Time: (\d+) ms"), result.stdout)
+        if match:
+            time = float(match.group(1))
+            output_times.append(time)
+            #output to file
+            f.write(str(time) + "\n")
+
+worst_time = max(output_times)
+best_time = min(output_times)
+mode_time = Counter(output_times).most_common(1)[0][0]
+
+average_time = sum(output_times)/num_runs
+
+print(f"Worst time: {worst_time}")
+print(f"Mode time: {mode_time}")
+print(f"Best time: {best_time}")
+print(f"Total average time: {average_time}")
+        

@@ -6,7 +6,7 @@ import MonteCarloMini.Search.Direction;
 
 public class TerrainArea {
 	
-	public static final int PRECISION = 10000;
+	public static final int PRECISION = 100000;
 
 	private int rows, columns; //grid size
 	private double xmin, xmax, ymin, ymax; //x and y terrain limits
@@ -55,8 +55,10 @@ public class TerrainArea {
 		double x_coord = xmin + ( (xmax - xmin) / rows ) * x;
 		double y_coord = ymin + ( (ymax - ymin) / columns ) * y;
 		/* Compute function value */
-		// double value = -2 * Math.sin(x_coord) * Math.cos(y_coord/2.0) + Math.log( Math.abs(y_coord - Math.PI*2) );
-		double value = Math.pow((1-x_coord),2) + 100*Math.pow((y_coord - x_coord*x_coord),2);
+		// double value = -2 * Math.sin(x_coord) * Math.cos(y_coord/2.0) + Math.log( Math.abs(y_coord - Math.PI*2) ); //equation of original surface
+		//double value = Math.pow((1-x_coord),2) + 100*Math.pow((y_coord - x_coord*x_coord),2);// Rosenbrock Function
+		double value = Math.pow(x_coord-1,2) - Math.pow(y_coord-1,2);// Ellipse 
+
 		// **** NB  Rosenbrock function below can be used instead for validation ****
 		/*double tmp = y_coord-Math.pow(x_coord,2);
 		tmp=100.0*Math.pow(tmp,2);
