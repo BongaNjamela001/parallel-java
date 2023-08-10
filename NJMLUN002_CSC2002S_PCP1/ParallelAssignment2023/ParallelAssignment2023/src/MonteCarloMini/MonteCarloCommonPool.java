@@ -21,9 +21,9 @@ class MonteCarloCommonPool extends RecursiveTask<Integer> {
         finder = 0;
     }
 
-    private static void setFinder(int findHere) {
-        finder = findHere; 
-    }
+    // private static void setFinder(int findHere) {
+    //     finder = findHere; 
+    // }
 
     static int getFinder() {
         return finder;

@@ -19,7 +19,7 @@ java_files = [
     "MonteCarloMultipleDivisionApp.java",
 ]
 
-num_runs = 100
+num_runs = 50
 output_times = []
 
 row = sys.argv[1]
@@ -30,12 +30,13 @@ ymin = sys.argv[5]
 ymax = sys.argv[6]
 searches_density = sys.argv[7]
 
-with open("FJ_50002000_12thr.txt", "w") as f:
+with open("Serial_Grid_12500x12500.txt", "w") as f:
     for _ in range(num_runs):
         #Compile all java files
         subprocess.run(["javac"] + java_files, check=True)
+        
         #Run the Java program and capture the output
-        result = subprocess.run(["java", "MonteCarloMini.MonteCarloForkJoinApplication", row, column, xmin, xmax, ymin, ymax, searches_density], capture_output=True, text=True)
+        result = subprocess.run(["java", "MonteCarloMini.MonteCarloMinimization", row, column, xmin, xmax, ymin, ymax, searches_density], capture_output=True, text=True)
         
         #Get the 4th line of the output, corresponding to index 3, and read the time
         match = re.search(r"Time: (\d+) ms", result.stdout)
@@ -44,8 +45,6 @@ with open("FJ_50002000_12thr.txt", "w") as f:
             output_times.append(time)
             #output to file
             f.write(str(time) + "\n")
-        #if _ == 100:
-         #   print(result.stdout)
 
 worst_time = max(output_times)
 best_time = min(output_times)

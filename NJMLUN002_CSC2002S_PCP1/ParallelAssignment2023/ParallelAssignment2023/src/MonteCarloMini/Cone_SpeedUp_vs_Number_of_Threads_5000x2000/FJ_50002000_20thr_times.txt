@@ -1,0 +1,4 @@
+Worst time: 474.0
+Mode time: 405.0
+Best time: 318.0
+Total average time: 387.32

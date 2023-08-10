@@ -55,9 +55,9 @@ public class TerrainArea {
 		double x_coord = xmin + ( (xmax - xmin) / rows ) * x;
 		double y_coord = ymin + ( (ymax - ymin) / columns ) * y;
 		/* Compute function value */
-		// double value = -2 * Math.sin(x_coord) * Math.cos(y_coord/2.0) + Math.log( Math.abs(y_coord - Math.PI*2) ); //equation of original surface
+		double value = -2 * Math.sin(x_coord) * Math.cos(y_coord/2.0) + Math.log( Math.abs(y_coord - Math.PI*2) ); //equation of original surface
 		//double value = Math.pow((1-x_coord),2) + 100*Math.pow((y_coord - x_coord*x_coord),2);// Rosenbrock Function
-		double value = Math.pow(x_coord-1,2) - Math.pow(y_coord-1,2);// Ellipse 
+		// double value = Math.pow(x_coord-1,2) - Math.pow(y_coord-1,2);// shifted cone
 
 		// **** NB  Rosenbrock function below can be used instead for validation ****
 		/*double tmp = y_coord-Math.pow(x_coord,2);

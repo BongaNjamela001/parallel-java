@@ -24,7 +24,7 @@ import java.util.concurrent.RecursiveTask;
 class MonteCarloForkJoinApplication {
 
 
-    static final ForkJoinPool fjPool = new ForkJoinPool(12);
+    static final ForkJoinPool fjPool = new ForkJoinPool();
 
     static long startTim=0;
     static long endTim=0;
